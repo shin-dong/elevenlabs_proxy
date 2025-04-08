@@ -1,47 +1,29 @@
-{
-  "openapi": "3.0.0",
-  "info": {
-    "title": "ElevenLabs Proxy API",
-    "description": "API to synthesize speech using ElevenLabs custom voice.",
-    "version": "1.0.0"
-  },
-  "paths": {
-    "/api/speak": {
-      "post": {
-        "summary": "Synthesize speech from text",
-        "operationId": "synthesizeSpeech",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "string",
-                    "description": "The text to be converted to speech"
-                  }
-                },
-                "required": ["text"]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful voice synthesis",
-            "content": {
-              "audio/mpeg": {}
-            }
-          },
-          "400": {
-            "description": "Missing or invalid text"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    }
-  }
-}
+openapi: 3.0.0
+info:
+  title: ElevenLabs Proxy API
+  version: 1.0.0
+paths:
+  /api/speak:
+    post:
+      summary: Convert text to speech using ElevenLabs custom voice
+      operationId: speak
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                  example: "Hello from Shindy custom voice!"
+      responses:
+        '200':
+          description: MP3 audio output
+          content:
+            audio/mpeg:
+              schema:
+                type: string
+                format: binary
+servers:
+  - url: https://elevenlabs-proxy-git-main-dmshins-projects.vercel.app
