@@ -1,4 +1,3 @@
-// Express 프록시 서버 코드
 const express = require("express");
 const axios = require("axios");
 const bodyParser = require("body-parser");
@@ -8,7 +7,7 @@ app.use(bodyParser.json());
 const PORT = process.env.PORT || 3000;
 
 const ELEVEN_API_KEY = process.env.ELEVEN_API_KEY;
-const VOICE_ID = process.env.ELEVEN_VOICE_ID;
+const VOICE_ID = "Nhs6CiEuKyJpYrxhZqDd";
 
 app.post("/api/speak", async (req, res) => {
   const { text } = req.body;
@@ -18,31 +17,19 @@ app.post("/api/speak", async (req, res) => {
   }
 
   try {
-    const response = await axios({
-      method: "POST",
-      url: `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`,
-      headers: {
-        "Content-Type": "application/json",
-        "xi-api-key": ELEVEN_API_KEY,
-      },
-      data: {
-        text: text,
-        voice_settings: {
-          stability: 0.4,
-          similarity_boost: 0.7,
-        },
-      },
-      responseType: "arraybuffer",
-    });
+    // 원래는 여기서 음성 요청 보내는 코드가 있지만,
+    // 테스트용이므로 실제 요청 생략
 
-    res.set({
-      "Content-Type": "audio/mpeg",
-      "Content-Length": response.data.length,
+    console.log("Received text:", text);
+    
+    // GPT 테스트용 JSON 응답
+    res.json({
+      message: "TTS request received successfully!",
+      text: text,
+      status: "ok"
     });
-
-    res.send(response.data);
   } catch (error) {
-    console.error(error.response?.data || error.message);
+    console.error(error.message);
     res.status(500).json({ error: "Voice synthesis failed" });
   }
 });
