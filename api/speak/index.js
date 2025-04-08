@@ -7,8 +7,8 @@ app.use(bodyParser.json());
 
 const PORT = process.env.PORT || 3000;
 
-const ELEVEN_API_KEY = "sk_87d88e801bba38cb622504ff0057442393d0292fdf07db73";
-const VOICE_ID = "Nhs6CiEuKyJpYrxhZqDd";
+const ELEVEN_API_KEY = process.env.ELEVEN_API_KEY;
+const VOICE_ID = process.env.ELEVEN_VOICE_ID;
 
 app.post("/api/speak", async (req, res) => {
   const { text } = req.body;
