@@ -16,14 +16,23 @@ paths:
               properties:
                 text:
                   type: string
-                  example: "Hello from Shindy custom voice!"
+                  example: "Hi, I'm Shindy. Let's practice English!"
       responses:
-        '200':
-          description: MP3 audio output
+        "200":
+          description: Successful TTS request
           content:
-            audio/mpeg:
+            application/json:
               schema:
-                type: string
-                format: binary
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "TTS request received successfully!"
+                  receivedText:
+                    type: string
+                    example: "Hi, I'm Shindy. Let's practice English!"
 servers:
   - url: https://elevenlabs-proxy-git-main-dmshins-projects.vercel.app
