@@ -13,24 +13,22 @@ app.post("/api/speak", async (req, res) => {
   const { text } = req.body;
 
   if (!text) {
-    return res.status(400).json({ error: "Missing text" });
+    return res.status(400).json({ success: false, error: "Missing text" });
   }
 
   try {
-    // 원래는 여기서 음성 요청 보내는 코드가 있지만,
-    // 테스트용이므로 실제 요청 생략
+    // 실제 ElevenLabs API 호출은 생략 (테스트용)
+    console.log("GPT 요청 수신됨:", text);
 
-    console.log("Received text:", text);
-    
-    // GPT 테스트용 JSON 응답
-    res.json({
+    // GPT가 잘 파싱할 수 있는 명확한 JSON 응답
+    res.status(200).json({
+      success: true,
       message: "TTS request received successfully!",
-      text: text,
-      status: "ok"
+      receivedText: text
     });
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ error: "Voice synthesis failed" });
+    res.status(500).json({ success: false, error: "Voice synthesis failed" });
   }
 });
 
