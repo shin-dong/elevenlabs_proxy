@@ -30,7 +30,8 @@ module.exports = async function handler(req, res) {
     const { url } = await put(fileName, audioBuffer, {
       access: 'public',
       token: process.env.BLOBS_READ_WRITE_TOKEN,
-      contentType: 'audio/mpeg'
+      contentType: 'audio/mpeg',
+      addContentDisposition: false
     });
 
     console.log('[DEBUG] Upload successful. URL:', url);
