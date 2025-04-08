@@ -29,7 +29,7 @@ module.exports = async function handler(req, res) {
 
     const { url } = await put(fileName, audioBuffer, {
       access: 'public',
-      token: process.env.BLOB_READ_WRITE_TOKEN,
+      token: process.env.BLOBS_READ_WRITE_TOKEN,
       contentType: 'audio/mpeg'
     });
 
